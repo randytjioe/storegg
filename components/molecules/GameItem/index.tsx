@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-interface GameItemProps {
+export default interface GameItemProps {
   title: string;
   category: string;
   thumbnail:
