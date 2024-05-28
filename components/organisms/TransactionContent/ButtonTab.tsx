@@ -1,22 +1,19 @@
-import React from 'react'
-import cx from 'classnames'
+import React from "react";
+import cx from "classnames";
 interface ButtonTabProps {
-    title: string;
-    active?: boolean;
+  title: string;
+  active?: boolean;
+  onClick?: () => void;
 }
-export default function ButtonTab(props : Partial<ButtonTabProps>) {
-    const { title, active } = props;
-    const btnClass = cx ({
-        "btn btn-status rounded-pill text-sm btn-active me-3" : true,
-        "btn-active" : active
-    })
+export default function ButtonTab(props: Partial<ButtonTabProps>) {
+  const { title, active, onClick } = props;
+  const btnClass = cx({
+    "btn btn-status rounded-pill text-sm btn-active me-3": true,
+    "btn-active": active,
+  });
   return (
-    <a
-      data-filter="*"
-      href="#"
-      className={btnClass}
-    >
+    <button onClick={onClick} className={btnClass}>
       {title}
-    </a>
+    </button>
   );
 }

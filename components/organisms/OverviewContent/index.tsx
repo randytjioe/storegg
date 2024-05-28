@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Category from "./Category";
 import TableRow from "./TableRow";
 
+import { toast } from "react-toastify";
+import {
+  HistoryTransactionTypes,
+  HistoryVoucherTopUpTypes,
+} from "@/services/data-types";
+import { getMemberOverview } from "@/services/member";
+
 export default function OverviewContent() {
+  const [count, setCount] = useState([]);
+  const [data, setData] = useState([]);
+  const getMemberOverviewAPI = useCallback(async () => {
+    const response = await getMemberOverview();
+    if (response.error) {
+      toast.error(response.message);
+    } else {
+      setCount(response.data.count);
+      setData(response.data.data);
+    }
+  });
+  useEffect(() => {
+    getMemberOverviewAPI();
+  }, []);
+  const IMG = process.env.NEXT_PUBLIC_IMG;
   return (
     <main className="main-wrapper">
       <div className="ps-lg-0">
@@ -13,18 +35,11 @@ export default function OverviewContent() {
           </p>
           <div className="main-content">
             <div className="row">
-              <Category nominal={18000500} icon="ic-desktop">
-                Game <br />
-                Desktop
-              </Category>
-              <Category nominal={18000500} icon="ic-mobile">
-                Game <br />
-                Mobile
-              </Category>
-              <Category nominal={18000500} icon="ic-desktop">
-                Others <br />
-                Categories
-              </Category>
+              {count.map((item) => (
+                <Category key={item._id} nominal={item.value} icon="ic-desktop">
+                  {item.name}
+                </Category>
+              ))}
             </div>
           </div>
         </div>
@@ -45,38 +60,19 @@ export default function OverviewContent() {
                 </tr>
               </thead>
               <tbody>
-                <TableRow
-                  image="overview-1"
-                  title="Mobile Legends: The New Battle 2022"
-                  category="Desktop"
-                  item={200}
-                  price={290000}
-                  status="Pending"
-                />
-                <TableRow
-                  image="overview-2"
-                  title="Call of Duty:Modern"
-                  category="Desktop"
-                  item={550}
-                  price={740000}
-                  status="Success"
-                />
-                <TableRow
-                  image="overview-3"
-                  title="Clash of Clans"
-                  category="Mobile"
-                  item={100}
-                  price={120000}
-                  status="Success"
-                />
-                <TableRow
-                  image="overview-4"
-                  title="The Royal Game"
-                  category="Mobile"
-                  item={225}
-                  price={200000}
-                  status="Failed"
-                />
+                {data.map((item: HistoryTransactionTypes) => {
+                  return (
+                    <TableRow
+                      key={item._id}
+                      image={`${IMG}/${item.historyVoucherTopup.thumbnail}`}
+                      title={item.historyVoucherTopup.gameName}
+                      category={item.historyVoucherTopup.category}
+                      item={`${item.historyVoucherTopup.coinName}-${item.historyVoucherTopup.coinQuantity}`}
+                      price={item.value}
+                      status={item.status}
+                    />
+                  );
+                })}
               </tbody>
             </table>
           </div>

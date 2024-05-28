@@ -1,9 +1,16 @@
 import CheckOutConfirmation from "@/components/organisms/CheckoutConfirmation";
 import CheckOutDetail from "@/components/organisms/CheckoutDetail";
 import CheckoutItem from "@/components/organisms/CheckoutItem";
+import { JWTPayloadTypes, UserTypes } from "@/services/data-types";
+import { jwtDecode } from "jwt-decode";
+import { redirect } from "next/dist/server/api-utils";
 import Image from "next/image";
 
-export default function Checkout() {
+interface CheckoutProps {
+  user: UserTypes;
+}
+export default function Checkout(props: CheckoutProps) {
+  const { user } = props;
   return (
     <section className="checkout mx-auto pt-md-100 pb-md-145 pt-30 pb-30">
       <div className="container-fluid">
@@ -25,4 +32,32 @@ export default function Checkout() {
       </div>
     </section>
   );
+}
+interface GetServerSideProps {
+  req: {
+    cookies: {
+      token: string;
+    };
+  };
+}
+export async function getServerSideProps({ req }: GetServerSideProps) {
+  const { token } = req.cookies;
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+  }
+  const jwtToken = Buffer.from(token, "base64").toString("ascii");
+  const payload: JWTPayloadTypes = jwtDecode(jwtToken);
+  const userFromPayload: UserTypes = payload.player;
+  const IMG = process.env.NEXT_PUBLIC_IMG;
+  userFromPayload.avatar = `${IMG}/${userFromPayload.avatar}`;
+  return {
+    props: {
+      user: userFromPayload,
+    },
+  };
 }

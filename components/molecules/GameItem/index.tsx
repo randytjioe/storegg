@@ -5,23 +5,18 @@ import React from "react";
 export default interface GameItemProps {
   title: string;
   category: string;
-  thumbnail:
-    | "Thumbnail-1"
-    | "Thumbnail-2"
-    | "Thumbnail-3"
-    | "Thumbnail-4"
-    | "Thumbnail-5";
+  thumbnail: string;
 }
 export default function GameItem(props: GameItemProps) {
-  const { title, category, thumbnail } = props;
+  const { title, category, thumbnail, id } = props;
   return (
     <div className="featured-game-card position-relative">
-      <Link href="./detail" legacyBehavior>
+      <Link href={`/detail/${id}`} legacyBehavior>
         <a>
           <div className="blur-sharp">
             <Image
               className="thumbnail"
-              src={`/img/${thumbnail}.png`}
+              src={`${thumbnail}`}
               width={205}
               height={270}
               alt="thumbnail"
