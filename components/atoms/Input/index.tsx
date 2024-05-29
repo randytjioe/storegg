@@ -1,9 +1,9 @@
-import React from "react";
+import { InputHTMLAttributes } from "react";
 
-interface InputProps {
-    label: string;
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  label: string;
 }
-export default function Input(props: Partial<InputProps>) {
+export default function Input(props: InputProps) {
   const { label, ...nativeProps } = props;
   return (
     <>

@@ -6,7 +6,7 @@ import { NumericFormat } from "react-number-format";
 interface TableRowProps {
   title: string;
   category: string;
-  item: number;
+  item: string;
   price: number;
   status: string;
   image: string;
@@ -44,11 +44,11 @@ export default function TableRow(props: TableRowProps) {
       <td>
         <p className="fw-medium text-start color-palette-1 m-0">
           <NumericFormat
-          value = {price}
-          prefix="Rp. "
-          displayType="text"
-          thousandSeparator="."
-          decimalSeparator=","
+            value={price}
+            prefix="Rp. "
+            displayType="text"
+            thousandSeparator="."
+            decimalSeparator=","
           />
         </p>
       </td>

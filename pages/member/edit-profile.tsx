@@ -4,18 +4,24 @@ import { JWTPayloadTypes, UserTypes } from "@/services/data-types";
 import { updateProfile } from "@/services/member";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+interface UserStateTypes {
+  id: string;
+  name: string;
+  email: string;
+  avatar: any;
+}
 
 export default function EditProfile() {
-  const [user, setUser] = useState({
+  const [user, setUser] = useState<UserStateTypes>({
     name: "",
     email: "",
     avatar: "",
+    id: "",
   });
-  const [imagePreview, setImagePreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState("/");
   const router = useRouter();
   useEffect(() => {
     const token = Cookies.get("token");
@@ -74,9 +80,12 @@ export default function EditProfile() {
                     name="avatar"
                     accept="image/png, image/jpeg"
                     onChange={(event) => {
-                      const img = event.target.files[0];
+                      const img = event.target.files![0];
                       setImagePreview(URL.createObjectURL(img));
-                      return setUser({ ...user, avatar: img });
+                      return setUser({
+                        ...user,
+                        avatar: img,
+                      });
                     }}
                   />
                 </div>

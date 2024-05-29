@@ -4,9 +4,7 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { JWTPayloadTypes, UserTypes } from "@/services/data-types";
 import { useRouter } from "next/router";
-interface AuthProps {
-  isLogin?: boolean;
-}
+
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(false);
   const [user, setUser] = useState({

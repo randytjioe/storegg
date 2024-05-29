@@ -6,11 +6,7 @@ import { jwtDecode } from "jwt-decode";
 import { redirect } from "next/dist/server/api-utils";
 import Image from "next/image";
 
-interface CheckoutProps {
-  user: UserTypes;
-}
-export default function Checkout(props: CheckoutProps) {
-  const { user } = props;
+export default function Checkout() {
   return (
     <section className="checkout mx-auto pt-md-100 pb-md-145 pt-30 pb-30">
       <div className="container-fluid">
@@ -50,14 +46,8 @@ export async function getServerSideProps({ req }: GetServerSideProps) {
       },
     };
   }
-  const jwtToken = Buffer.from(token, "base64").toString("ascii");
-  const payload: JWTPayloadTypes = jwtDecode(jwtToken);
-  const userFromPayload: UserTypes = payload.player;
-  const IMG = process.env.NEXT_PUBLIC_IMG;
-  userFromPayload.avatar = `${IMG}/${userFromPayload.avatar}`;
+
   return {
-    props: {
-      user: userFromPayload,
-    },
+    props: {},
   };
 }

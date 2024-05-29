@@ -2,10 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-export default interface GameItemProps {
+interface GameItemProps {
   title: string;
   category: string;
   thumbnail: string;
+  id: string;
 }
 export default function GameItem(props: GameItemProps) {
   const { title, category, thumbnail, id } = props;

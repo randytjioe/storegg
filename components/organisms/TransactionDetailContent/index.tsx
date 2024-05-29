@@ -9,7 +9,7 @@ export default function TransactionDetailContent(
   props: TransactionDetailContentProps
 ) {
   const { data } = props;
-  console.log(data);
+
   const IMG = process.env.NEXT_PUBLIC_IMG;
   return (
     <main className="main-wrapper">
@@ -71,7 +71,10 @@ export default function TransactionDetailContent(
                 <h2 className="fw-bold text-xl color-palette-1 mb-20">
                   Payment Informations
                 </h2>
-                <Row label="Your Account Name" value={data.name} />
+                <Row
+                  label="Your Account Name"
+                  value={data.historyPayment.name}
+                />
                 <Row label="Type" value={data.historyPayment.type} />
                 <Row label="Bank Name" value={data.historyPayment.bankName} />
                 <Row

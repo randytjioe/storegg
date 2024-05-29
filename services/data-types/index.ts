@@ -74,6 +74,8 @@ export interface HistoryTransactionTypes {
   accountUser: string;
   tax: number;
   historyPayment: HistoryPaymentTypes;
+  item: string;
+  
 }
 
 export interface TopUpCategoriesTypes {
@@ -87,4 +89,5 @@ export interface HistoryPaymentTypes {
   type: string;
   status: string;
   bankName: string;
+  noRekening: string;
 }

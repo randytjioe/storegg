@@ -6,10 +6,10 @@ import { NumericFormat } from "react-number-format";
 interface TableRowProps {
   title: string;
   category: string;
-  item: number;
+  item: string;
   price: number;
-  status: "Success" | "Pending" | "Failed";
-  image: "overview-1" | "overview-2" | "overview-3" | "overview-4";
+  status: string;
+  image: string;
   id: string;
 }
 export default function TableRow(props: TableRowProps) {

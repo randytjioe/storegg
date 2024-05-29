@@ -18,34 +18,9 @@ interface DetailProps {
   payments: PaymentTypes[];
 }
 export default function Detail({ dataItem, nominals, payments }: DetailProps) {
-  // const { query, isReady } = useRouter();
-  // const [dataItem, setDataItem] = useState({
-  //   name: "",
-  //   thumbnail: "",
-  //   category: {
-  //     name: "",
-  //   },
-  // });
-  // const [nominals, setNominals] = useState([]);
-  // const [payments, setPayments] = useState([]);
-  // const getVoucherDetailAPI = useCallback(async (id) => {
-  //   const data = await getDetailVoucher(id);
-  //   setDataItem(data.detail);
-  //   localStorage.setItem("data-item", JSON.stringify(data.detail));
-  //   setNominals(data.detail.nominals);
-  //   setPayments(data.payment);
-  // }, []);
-  // useEffect(() => {
-  //   if (isReady) {
-  //     console.log("router sudah tersedia", query.id);
-  //     getVoucherDetailAPI(query.id);
-  //   } else {
-  //     console.log("router belum tersedia");
-  //   }
-  // }, [isReady]);
   useEffect(() => {
     localStorage.setItem("data-item", JSON.stringify(dataItem));
-  })
+  });
   return (
     <>
       <Navbar />

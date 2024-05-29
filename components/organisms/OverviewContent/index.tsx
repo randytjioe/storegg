@@ -5,7 +5,7 @@ import TableRow from "./TableRow";
 import { toast } from "react-toastify";
 import {
   HistoryTransactionTypes,
-  HistoryVoucherTopUpTypes,
+  TopUpCategoriesTypes,
 } from "@/services/data-types";
 import { getMemberOverview } from "@/services/member";
 
@@ -20,7 +20,7 @@ export default function OverviewContent() {
       setCount(response.data.count);
       setData(response.data.data);
     }
-  });
+  }, []);
   useEffect(() => {
     getMemberOverviewAPI();
   }, []);
@@ -35,7 +35,7 @@ export default function OverviewContent() {
           </p>
           <div className="main-content">
             <div className="row">
-              {count.map((item) => (
+              {count.map((item: TopUpCategoriesTypes) => (
                 <Category key={item._id} nominal={item.value} icon="ic-desktop">
                   {item.name}
                 </Category>
@@ -67,7 +67,7 @@ export default function OverviewContent() {
                       image={`${IMG}/${item.historyVoucherTopup.thumbnail}`}
                       title={item.historyVoucherTopup.gameName}
                       category={item.historyVoucherTopup.category}
-                      item={`${item.historyVoucherTopup.coinName}-${item.historyVoucherTopup.coinQuantity}`}
+                      item={`${item.historyVoucherTopup.coinName} ${item.historyVoucherTopup.coinQuantity}`}
                       price={item.value}
                       status={item.status}
                     />

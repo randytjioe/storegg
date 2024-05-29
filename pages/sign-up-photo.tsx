@@ -1,4 +1,5 @@
 import { setSignUp } from "@/services/auth";
+import { CategoryTypes } from "@/services/data-types";
 import { getGameCategory } from "@/services/player";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -9,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 export default function SignUpPhoto() {
   const [categories, setCategories] = useState([]);
   const [favorite, setFavorite] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState<any>("");
   const [imagePreview, setImagePreview] = useState("/icon/upload.svg");
   const [localForm, setLocalForm] = useState({
     name: "",
@@ -29,7 +30,6 @@ export default function SignUpPhoto() {
     setLocalForm(JSON.parse(getLocalForm!));
   }, []);
   const onSubmit = async () => {
-    console.log(image);
     const getLocalForm = await localStorage.getItem("user-form");
     const form = JSON.parse(getLocalForm!);
     const data = new FormData();
@@ -82,8 +82,7 @@ export default function SignUpPhoto() {
                     name="avatar"
                     accept="image/png, image/jpeg"
                     onChange={(event) => {
-                      console.log(event.target.files);
-                      const img = event.target.files[0];
+                      const img = event.target.files![0];
                       setImagePreview(URL.createObjectURL(img));
                       return setImage(img);
                     }}
@@ -111,7 +110,7 @@ export default function SignUpPhoto() {
                   value={favorite}
                   onChange={(event) => setFavorite(event.target.value)}
                 >
-                  {categories.map((category) => {
+                  {categories.map((category: CategoryTypes) => {
                     return (
                       <option value={category._id} selected>
                         {category.name}

@@ -18,7 +18,7 @@ interface MenuItemProps {
   onClick?: () => void;
 }
 export default function MenuItem(props: Partial<MenuItemProps>) {
-  const { title, icon, active, href, onClick } = props;
+  const { title, icon, active, href = "/", onClick } = props;
   const classItem = cx({
     item: true,
     "mb-30": true,
@@ -27,7 +27,7 @@ export default function MenuItem(props: Partial<MenuItemProps>) {
   return (
     <div className={classItem} onClick={onClick}>
       <div className="me-3">
-        <Image src={`/icon/${icon}.svg`} width={25} height={25} />
+        <Image src={`/icon/${icon}.svg`} width={25} height={25} alt="icon" />
       </div>
 
       <p className="item-title m-0">

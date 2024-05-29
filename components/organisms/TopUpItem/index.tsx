@@ -13,7 +13,7 @@ interface TopUpItemProps {
 export default function TopUpItem(props: TopUpItemProps) {
   const { type, data } = props;
   const ROOT_IMG = process.env.NEXT_PUBLIC_IMG;
-  console.log(data);
+
   if (type === "desktop") {
     return (
       <div className="pb-50 d-md-block d-none">
